@@ -3,15 +3,14 @@ package app.domain.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="districts")
@@ -20,14 +19,14 @@ public class District {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
+	@NotEmpty(message = "Please provide a name for district")
     private String name;
-    
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "state_id", nullable = false)
-    private State state;
+
+	@NotNull
+    private Integer stateId;
     
     private String slug;
-    
+
     private Boolean status;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,7 +35,7 @@ public class District {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
     
-    public void District() {
+    public District() {
     	
     }
 
@@ -88,11 +87,11 @@ public class District {
 		this.modified = modified;
 	}
 
-	public State getState() {
-		return state;
+	public Integer getStateId() {
+		return stateId;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setState(Integer stateId) {
+		this.stateId = stateId;
 	}
 }
