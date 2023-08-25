@@ -33,6 +33,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.kafka:spring-kafka")
     compile("org.springdoc:springdoc-openapi-ui:1.6.15")
+    compile("org.projectlombok:lombok:1.18.28")
     runtime("mysql:mysql-connector-java")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

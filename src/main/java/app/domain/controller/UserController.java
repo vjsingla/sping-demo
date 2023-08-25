@@ -1,5 +1,6 @@
 package app.domain.controller;
 
+import app.domain.controller.request.UserRequest;
 import app.domain.controller.response.ResponseHandler;
 import app.domain.entity.User;
 import app.domain.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @Tag(name = "User")
@@ -21,8 +23,8 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/users/{id}")
-	@Operation(operationId = "getUser", description = "Get a single user object")
-	public ResponseEntity<Object> get(@PathVariable int id) {
+	@Operation(description = "Get a single user object")
+	public ResponseEntity<Object> get(@PathVariable UUID id) {
 		try {
 			User record = userService.findById(id);
 			if (record == null) {
@@ -44,7 +46,7 @@ public class UserController {
 	}
 
 	@PostMapping(path="/users")
-	public ResponseEntity<Object> create(@Valid @RequestBody User user) {
+	public ResponseEntity<Object> create(@Valid @RequestBody UserRequest user) {
 		try {
 			User saved = userService.save(user);
 			return ResponseHandler.success(saved);
@@ -54,7 +56,7 @@ public class UserController {
 	}
 
 	@DeleteMapping(path = "/users/{id}")
-	public ResponseEntity<Object> delete(@PathVariable int id) {
+	public ResponseEntity<Object> delete(@PathVariable UUID id) {
 		try {
 			User record = userService.findById(id);
 			if (record == null) {
