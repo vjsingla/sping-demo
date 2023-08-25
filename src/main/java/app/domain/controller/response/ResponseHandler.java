@@ -16,6 +16,15 @@ public class ResponseHandler {
         return new ResponseEntity<Object>(map,status);
     }
 
+    public static ResponseEntity<Object> validationErrorResponse(Object responseObj) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", status.value());
+        map.put("errors", responseObj);
+
+        return new ResponseEntity<Object>(map,status);
+    }
+
     public static ResponseEntity<Object> success(Object responseObj) {
         return generateResponse(
                 "Success",
