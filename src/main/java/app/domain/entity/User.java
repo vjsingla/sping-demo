@@ -2,13 +2,9 @@ package app.domain.entity;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="users")
@@ -20,11 +16,14 @@ public class User {
     private String firstname;
     
     private String lastname;
-    
+
+	@NotNull
     private String username;
-    
+
+	@NotNull
     private String password;
 
+	@Email(message = "Please provide a valid email")
     private String email;
     
     private Boolean status;
