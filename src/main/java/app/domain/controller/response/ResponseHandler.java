@@ -13,7 +13,7 @@ public class ResponseHandler {
         map.put("status", status.value());
         map.put("data", responseObj);
 
-        return new ResponseEntity<Object>(map,status);
+        return new ResponseEntity<>(map, status);
     }
 
     public static ResponseEntity<Object> validationErrorResponse(Object responseObj) {
@@ -22,7 +22,7 @@ public class ResponseHandler {
         map.put("status", status.value());
         map.put("errors", responseObj);
 
-        return new ResponseEntity<Object>(map,status);
+        return new ResponseEntity<>(map, status);
     }
 
     public static ResponseEntity<Object> success(Object responseObj) {
@@ -34,7 +34,7 @@ public class ResponseHandler {
     }
 
     public static ResponseEntity<Object> noContent() {
-        return new ResponseEntity<Object>(
+        return new ResponseEntity<>(
                 "",
                 HttpStatus.NO_CONTENT
         );

@@ -1,23 +1,19 @@
 package app.domain.entity;
 
 import lombok.Getter;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Getter
 @Entity
 @Table(name="users")
 public class User {
     @Id
-	@GeneratedValue(generator = "uuid-hibernate-generator")
-	@GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
-	@Type(type="org.hibernate.type.UUIDCharType")
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
     private String firstname;

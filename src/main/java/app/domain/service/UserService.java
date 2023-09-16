@@ -3,6 +3,7 @@ package app.domain.service;
 import app.domain.controller.request.UserRequest;
 import app.domain.entity.User;
 import app.infrastructure.database.UserRepository;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,8 +14,11 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    public UserService(UserRepository userRepository, KafkaTemplate<String, String> kafkaTemplate) {
         this.userRepository = userRepository;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     public User findById(UUID id) {
@@ -35,7 +39,9 @@ public class UserService {
         user.setEmail(userRequest.getEmail());
         user.setStatus(false);
         user.setCreated(LocalDateTime.now());
-        return userRepository.save(user);
+        User saved = userRepository.save(user);
+        kafkaTemplate.send("baeldung", saved.getId().toString());
+        return saved;
     }
 
     public void deleteById(UUID id) {
